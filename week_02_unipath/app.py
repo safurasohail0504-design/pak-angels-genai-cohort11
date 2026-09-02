@@ -6,7 +6,7 @@ from utils import SOURCES, UNI_MERIT_DATA
 st.set_page_config(page_title="UniPath AI Lahore", page_icon="🎓", layout="wide")
 st.title("🎓 UniPath AI: Lahore Public Sector Merit & Admission Advisor")
 
-# Auto-fetch secret key or display sidebar fallback
+# Auto-fetch secret key from Streamlit Secrets or sidebar fallback
 groq_api_key = st.secrets.get("GROQ_API_KEY", "")
 
 if not groq_api_key:
@@ -54,16 +54,16 @@ if mode == "Target Specific University":
                 3. Two alternative Lahore public universities or programs as backup.
                 """
                 
-                # Active Groq model endpoints
+                # Instructor's model: llama-3.1-8b-instant
                 try:
                     response = client.chat.completions.create(
                         messages=[{"role": "user", "content": prompt}],
-                        model="llama3-70b-8192",
+                        model="llama-3.1-8b-instant",
                     )
                 except Exception:
                     response = client.chat.completions.create(
                         messages=[{"role": "user", "content": prompt}],
-                        model="llama3-8b-8192",
+                        model="llama-3.3-70b-versatile",
                     )
                 
                 st.subheader("🧠 Groq AI Career Roadmap")
