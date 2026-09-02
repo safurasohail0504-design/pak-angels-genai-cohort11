@@ -54,17 +54,11 @@ if mode == "Target Specific University":
                 3. Two alternative Lahore public universities or programs as backup.
                 """
                 
-                # Instructor's model: llama-3.1-8b-instant
-                try:
-                    response = client.chat.completions.create(
-                        messages=[{"role": "user", "content": prompt}],
-                        model="llama-3.1-8b-instant",
-                    )
-                except Exception:
-                    response = client.chat.completions.create(
-                        messages=[{"role": "user", "content": prompt}],
-                        model="llama-3.3-70b-versatile",
-                    )
+                # Instructor's exact target model
+                response = client.chat.completions.create(
+                    messages=[{"role": "user", "content": prompt}],
+                    model="llama-3.1-8b-instant",
+                )
                 
                 st.subheader("🧠 Groq AI Career Roadmap")
                 st.info(response.choices[0].message.content)
