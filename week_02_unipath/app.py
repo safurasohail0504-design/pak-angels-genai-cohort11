@@ -54,11 +54,18 @@ if mode == "Target Specific University":
                 3. Two alternative Lahore public universities or programs as backup.
                 """
                 
-                # Instructor's exact target model
-                response = client.chat.completions.create(
-                    messages=[{"role": "user", "content": prompt}],
-                    model="llama-3.1-8b-instant",
-                )
+                # Dynamic model selection trying active Groq endpoints
+                model_to_use = "openai/gpt-oss-120b"
+                try:
+                    response = client.chat.completions.create(
+                        messages=[{"role": "user", "content": prompt}],
+                        model=model_to_use,
+                    )
+                except Exception:
+                    response = client.chat.completions.create(
+                        messages=[{"role": "user", "content": prompt}],
+                        model="openai/gpt-oss-20b",
+                    )
                 
                 st.subheader("🧠 Groq AI Career Roadmap")
                 st.info(response.choices[0].message.content)
