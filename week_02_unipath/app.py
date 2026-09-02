@@ -6,16 +6,20 @@ from utils import SOURCES, UNI_MERIT_DATA
 st.set_page_config(page_title="UniPath AI Lahore", page_icon="🎓", layout="wide")
 st.title("🎓 UniPath AI: Lahore Public Sector Merit & Admission Advisor")
 
-with st.sidebar:
-    st.header("🔑 Groq API Setup")
-    groq_api_key = st.text_input("Enter Groq API Key", type="password")
+# Auto-fetch secret key or display sidebar fallback
+groq_api_key = st.secrets.get("GROQ_API_KEY", "")
+
+if not groq_api_key:
+    with st.sidebar:
+        st.header("🔑 Groq API Setup")
+        groq_api_key = st.text_input("Enter Groq API Key", type="password")
 
 st.subheader("1. Academic Marks")
 c1, c2 = st.columns(2)
 with c1:
-    matric_marks = st.number_input("Matric Marks (Out of 1100)", 300, 1100, 950)
+    matric_marks = st.number_input("Matric Marks (Out of 1100)", 300, 1100, 1061)
 with c2:
-    fsc_marks = st.number_input("Intermediate / FSC Marks (Out of 1100)", 300, 1100, 880)
+    fsc_marks = st.number_input("Intermediate / FSC Marks (Out of 1100)", 300, 1100, 918)
 
 mode = st.radio("Choose Mode:", ["Target Specific University", "Auto-Match All Eligible Universities"])
 
@@ -27,7 +31,7 @@ if mode == "Target Specific University":
 
     if st.button("Calculate & Get Groq AI Strategy", type="primary"):
         if not groq_api_key:
-            st.error("Please enter your Groq API Key in the sidebar.")
+            st.error("Groq API Key missing. Add it in sidebar or Streamlit Secrets.")
         else:
             calc_func = SOURCES["Merit Calculator"]
             result = calc_func(matric_marks, fsc_marks, selected_uni, selected_field)
@@ -39,21 +43,28 @@ if mode == "Target Specific University":
             try:
                 client = Groq(api_key=groq_api_key)
                 prompt = f"""
-                You are a Pakistani Career Counselor specializing in Lahore Public Sector Universities.
+                You are an expert Pakistani Career Counselor for Lahore Public Sector Universities.
                 Student Profile: Matric: {matric_marks}/1100, FSC: {fsc_marks}/1100.
                 Target: {selected_uni} - {selected_field}.
                 Calculated Data: {result}.
                 
                 Provide:
                 1. Clear feasibility assessment.
-                2. Entry Test Strategy (e.g., ECAT/PU Test/NTS/NCA test guidance).
-                3. Two alternative Lahore public universities as backups.
+                2. Entry Test Strategy (e.g., ECAT / MDCAT / PU Test guidance).
+                3. Two alternative Lahore public universities or programs as backup.
                 """
                 
-                response = client.chat.completions.create(
-                    messages=[{"role": "user", "content": prompt}],
-                    model="llama-3.3-70b-versatile",
-                )
+                # Active Groq model endpoints
+                try:
+                    response = client.chat.completions.create(
+                        messages=[{"role": "user", "content": prompt}],
+                        model="llama3-70b-8192",
+                    )
+                except Exception:
+                    response = client.chat.completions.create(
+                        messages=[{"role": "user", "content": prompt}],
+                        model="llama3-8b-8192",
+                    )
                 
                 st.subheader("🧠 Groq AI Career Roadmap")
                 st.info(response.choices[0].message.content)

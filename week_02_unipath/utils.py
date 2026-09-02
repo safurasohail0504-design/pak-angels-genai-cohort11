@@ -1,49 +1,57 @@
 import pandas as pd
 
-# Comprehensive Merit Database for Top Lahore Public Sector Universities
 UNI_MERIT_DATA = {
     "University of the Punjab (PU / PUCIT)": {
         "BS Computer Science": {"last_merit": 86.5, "fsc_weight": 0.50, "matric_weight": 0.25, "entry_test_weight": 0.25},
         "BS Software Engineering": {"last_merit": 85.5, "fsc_weight": 0.50, "matric_weight": 0.25, "entry_test_weight": 0.25},
         "BS Data Science": {"last_merit": 84.0, "fsc_weight": 0.50, "matric_weight": 0.25, "entry_test_weight": 0.25},
+        "BS Information Technology (BS IT)": {"last_merit": 83.2, "fsc_weight": 0.50, "matric_weight": 0.25, "entry_test_weight": 0.25},
+        "BS Artificial Intelligence": {"last_merit": 85.0, "fsc_weight": 0.50, "matric_weight": 0.25, "entry_test_weight": 0.25},
+        "BBIT (Business & IT)": {"last_merit": 78.5, "fsc_weight": 0.70, "matric_weight": 0.30, "entry_test_weight": 0.00},
+        "BS International Relations (BS IR)": {"last_merit": 75.0, "fsc_weight": 0.70, "matric_weight": 0.30, "entry_test_weight": 0.00},
+        "Pharm-D (Pharmacy)": {"last_merit": 89.2, "fsc_weight": 0.70, "matric_weight": 0.30, "entry_test_weight": 0.00},
     },
     "UET Lahore": {
         "BS Computer Science": {"last_merit": 81.2, "fsc_weight": 0.50, "matric_weight": 0.17, "entry_test_weight": 0.33},
+        "BS Software Engineering": {"last_merit": 80.0, "fsc_weight": 0.50, "matric_weight": 0.17, "entry_test_weight": 0.33},
+        "BS Cyber Security": {"last_merit": 78.5, "fsc_weight": 0.50, "matric_weight": 0.17, "entry_test_weight": 0.33},
         "BSc Electrical Engineering": {"last_merit": 76.5, "fsc_weight": 0.50, "matric_weight": 0.17, "entry_test_weight": 0.33},
         "BSc Mechanical Engineering": {"last_merit": 74.0, "fsc_weight": 0.50, "matric_weight": 0.17, "entry_test_weight": 0.33},
+        "BS Business Information Technology": {"last_merit": 72.0, "fsc_weight": 0.50, "matric_weight": 0.17, "entry_test_weight": 0.33},
     },
     "GCU Lahore (Government College University)": {
         "BS Computer Science": {"last_merit": 84.5, "fsc_weight": 0.40, "matric_weight": 0.10, "entry_test_weight": 0.50},
         "BS Software Engineering": {"last_merit": 82.0, "fsc_weight": 0.40, "matric_weight": 0.10, "entry_test_weight": 0.50},
+        "BS Data Science": {"last_merit": 80.5, "fsc_weight": 0.40, "matric_weight": 0.10, "entry_test_weight": 0.50},
         "BS Biotechnology": {"last_merit": 80.0, "fsc_weight": 0.80, "matric_weight": 0.20, "entry_test_weight": 0.00},
+        "BS International Relations": {"last_merit": 76.2, "fsc_weight": 0.80, "matric_weight": 0.20, "entry_test_weight": 0.00},
+        "BS Business Administration (BBA)": {"last_merit": 78.0, "fsc_weight": 0.80, "matric_weight": 0.20, "entry_test_weight": 0.00},
+    },
+    "King Edward Medical University / SIMS": {
+        "MBBS (Medicine)": {"last_merit": 91.5, "fsc_weight": 0.40, "matric_weight": 0.10, "entry_test_weight": 0.50},
+        "BDS (Dentistry)": {"last_merit": 90.0, "fsc_weight": 0.40, "matric_weight": 0.10, "entry_test_weight": 0.50},
+        "Doctor of Physical Therapy (DPT)": {"last_merit": 86.0, "fsc_weight": 0.70, "matric_weight": 0.30, "entry_test_weight": 0.00},
     },
     "LCWU (Lahore College for Women University)": {
         "BS Computer Science": {"last_merit": 81.0, "fsc_weight": 0.50, "matric_weight": 0.17, "entry_test_weight": 0.33},
         "BS Software Engineering": {"last_merit": 79.5, "fsc_weight": 0.50, "matric_weight": 0.17, "entry_test_weight": 0.33},
-        "BS Electrical Engineering": {"last_merit": 72.0, "fsc_weight": 0.50, "matric_weight": 0.17, "entry_test_weight": 0.33},
+        "BS Information Technology": {"last_merit": 77.0, "fsc_weight": 0.50, "matric_weight": 0.17, "entry_test_weight": 0.33},
+        "Pharm-D": {"last_merit": 87.0, "fsc_weight": 0.70, "matric_weight": 0.30, "entry_test_weight": 0.00},
+        "BS International Relations": {"last_merit": 71.0, "fsc_weight": 0.80, "matric_weight": 0.20, "entry_test_weight": 0.00},
     },
     "Kinnaird College for Women": {
         "BS Computer Science": {"last_merit": 83.0, "fsc_weight": 0.80, "matric_weight": 0.20, "entry_test_weight": 0.00},
-        "BS Environmental Science": {"last_merit": 75.0, "fsc_weight": 0.80, "matric_weight": 0.20, "entry_test_weight": 0.00},
+        "BS Business Administration": {"last_merit": 79.0, "fsc_weight": 0.80, "matric_weight": 0.20, "entry_test_weight": 0.00},
+        "BS International Relations": {"last_merit": 76.5, "fsc_weight": 0.80, "matric_weight": 0.20, "entry_test_weight": 0.00},
     },
-    "UVAS (Univ. of Veterinary & Animal Sciences)": {
+    "UVAS Lahore": {
+        "Pharm-D": {"last_merit": 88.5, "fsc_weight": 0.70, "matric_weight": 0.30, "entry_test_weight": 0.00},
         "BS Biotechnology": {"last_merit": 85.0, "fsc_weight": 0.70, "matric_weight": 0.30, "entry_test_weight": 0.00},
         "BS Biochemistry": {"last_merit": 82.5, "fsc_weight": 0.70, "matric_weight": 0.30, "entry_test_weight": 0.00},
-    },
-    "NCA (National College of Arts)": {
-        "BS Visual Communication Design": {"last_merit": 70.0, "fsc_weight": 0.20, "matric_weight": 0.10, "entry_test_weight": 0.70},
-        "BS Architecture": {"last_merit": 73.5, "fsc_weight": 0.20, "matric_weight": 0.10, "entry_test_weight": 0.70},
-    },
-    "NUST (Islamabad/Lahore Candidates)": {
-        "BS Computer Science": {"last_merit": 78.5, "fsc_weight": 0.15, "matric_weight": 0.10, "entry_test_weight": 0.75},
-    },
-    "FAST-NU Lahore": {
-        "BS Computer Science": {"last_merit": 73.0, "fsc_weight": 0.50, "matric_weight": 0.00, "entry_test_weight": 0.50},
-        "BS Software Engineering": {"last_merit": 71.5, "fsc_weight": 0.50, "matric_weight": 0.00, "entry_test_weight": 0.50},
+        "BS Applied Microbiology": {"last_merit": 81.0, "fsc_weight": 0.70, "matric_weight": 0.30, "entry_test_weight": 0.00},
     }
 }
 
-# Helper 1: Calculate Required Entry Test Marks
 def calculate_required_test_marks(matric_marks: float, fsc_marks: float, target_uni: str, target_field: str) -> dict:
     if target_uni not in UNI_MERIT_DATA or target_field not in UNI_MERIT_DATA[target_uni]:
         return {"error": "University or Field data not found."}
@@ -77,7 +85,6 @@ def calculate_required_test_marks(matric_marks: float, fsc_marks: float, target_
             "status": "Eligible" if achieved_aggregate >= last_cutoff else "Below Cutoff"
         }
 
-# Helper 2: Find All Eligible Unis & Fields
 def find_eligible_universities(matric_marks: float, fsc_marks: float, assumed_test_score: float = 70.0) -> list:
     eligible_list = []
     matric_pct = (matric_marks / 1100) * 100
@@ -112,4 +119,3 @@ SOURCES = {
     "Merit Calculator": calculate_required_test_marks,
     "Eligibility Finder": find_eligible_universities
 }
-
